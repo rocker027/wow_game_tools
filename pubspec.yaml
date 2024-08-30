@@ -52,6 +52,9 @@ dev_dependencies:
   build_runner: ^2.4.11
   custom_lint: ^0.6.4
   riverpod_lint: ^2.3.10
+  #  fluttertoast: ^8.2.8 #  android & ios only
+  bot_toast: ^4.1.0 #null safety
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
