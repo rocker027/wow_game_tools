@@ -9,7 +9,8 @@ class Screen {
 }
 
 List<Screen> screens = [
-  Screen('home', '首頁', AppRoute.home),
-  Screen('bigWin', '計算BigWin', AppRoute.bigWin),
+  // Screen('home', '首頁', AppRoute.home),
   Screen('writeBugIssue', '開Bug單', AppRoute.writeBugIssue),
+  Screen('bigWin', '計算BigWin', AppRoute.bigWin),
+
 ];

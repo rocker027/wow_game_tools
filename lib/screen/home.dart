@@ -9,28 +9,41 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentRoute = ref.watch(navigationRouteProvider);
     return Scaffold(
-      body: Container(
-        // width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      body: GridView(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(screens.length, (idx) {
-            return TextButton(
-              onPressed: () {
-                BotToast.showText(text: screens[idx].displayName);
-                navigateTo(context, ref, screens[idx].route);
-              },
-              child: Text(
-                screens[idx].displayName,
-                textAlign: TextAlign.center,
-              ),
-            );
-          }),
+        children: List.generate(screens.length, (idx) {
+          return buildMenuButton(context, ref, idx);
+        }),
+      ),
+    );
+  }
+
+  Widget buildMenuButton(BuildContext context, WidgetRef ref, int index) {
+    final screen = screens[index];
+    return Container(
+      margin: _getMarginWith(index),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue, width: 2.0),
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: InkWell(
+        onTap: () {
+          BotToast.showText(text: screen.displayName);
+          navigateTo(context, ref, screen.route);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(
+            screen.displayName,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w900),
+          ),
         ),
       ),
     );
@@ -47,5 +60,17 @@ class HomeScreen extends ConsumerWidget {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  EdgeInsets _getMarginWith(int index) {
+    if (index % 2 == 0) {
+      // left
+      return const EdgeInsets.only(
+          left: 16.0, top: 8.0, right: 8.0, bottom: 8.0);
+    } else {
+      // right
+      return const EdgeInsets.only(
+          left: 8.0, top: 8.0, right: 16.0, bottom: 8.0);
+    }
   }
 }
